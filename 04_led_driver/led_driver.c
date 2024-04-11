@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 #include <linux/module.h>
 
 #include <linux/fs.h>
@@ -19,18 +17,17 @@
 
 #include "led_opr.h"
 
->>>>>>> 2cc6b304e3f9d064b4cbe2a782f573f6320350db
 
 
 
 
-<<<<<<< HEAD
+
+
 void led_init(void)
 {
 	
 }
-=======
->>>>>>> 2cc6b304e3f9d064b4cbe2a782f573f6320350db
+
 
 
 
