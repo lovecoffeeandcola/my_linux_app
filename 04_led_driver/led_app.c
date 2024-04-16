@@ -2,50 +2,43 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <unistd.h>
-
-
+#include <stdio.h>
+#include <string.h> 
 
 /*main function*/
 int main(int argc,char **argv)
 {
     int fd_open;
-    ssize_t write_return;
-    size_t len;
+    char status;
     /*if parameter num is true?*/
-    if((argc != 3)||(argc != 2))
+    if(argc != 3)
     {
         printf("incorrect parameter num!\n");
         return -1;
     }
     
-    /*parameter*/
-    if(argv[0] != (("open")&&("write")))
+    /*open file*/
+    fd_open = open(argv[1],O_RDWR);
+
+    if(fd_open == -1)
     {
-        printf("incorrect parameter!\n");
+        printf("can not open file:%s!\n",argv[1]);
         return -1;
     }
 
-    if(argv[0] == "open")
-    {
-        fd_open = open(argv[1],O_RDWR);
-        if(fd_open == -1)
-        {
-            printf("can not open file:%s\n",argv[1]);
-        }
-    }
-    else if(argv[0] == "write")
-    {
-        /**
-         * argv[2]: ON 1 /OFF 0
-        */
-        write_return = write(fd_open, argv[2], strlen(argv[2]));
-        if(write_return == -1)
-        {
-            printf("can ont write file:%s",argv[1]);
-        }
-    }
-
-
+    /*write file*/
+    if (0 == strcmp(argv[2], "on"))
+	{
+		status = 1;
+		write(fd_open, &status, 1);
+	}
+	else
+	{
+		status = 0;
+		write(fd_open, &status, 1);
+	}
+	
+	close(fd_open);
 
     return 0;
 }
