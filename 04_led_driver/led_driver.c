@@ -87,15 +87,15 @@ static int __init led_init(void)
 	int i;
 	
 	printk("%s %s line %d\n", __FILE__, __FUNCTION__, __LINE__);
-	major = register_chrdev(0, "100ask_led", &led_drv);  /* /dev/led */
+	major = register_chrdev(0, "my_led", &led_drv);  /* /dev/led */
 
 
-	led_class = class_create(THIS_MODULE, "100ask_led_class");
+	led_class = class_create(THIS_MODULE, "my_led_class");
 	err = PTR_ERR(led_class);
 	if (IS_ERR(led_class)) 
 	{
 		printk("%s %s line %d\n", __FILE__, __FUNCTION__, __LINE__);
-		unregister_chrdev(major, "led");
+		unregister_chrdev(major, "my_led");
 		return -1;
 	}
 
@@ -103,7 +103,7 @@ static int __init led_init(void)
 
 	for (i = 0; i < p_led_opr->num; i++)
 	{
-		device_create(led_class, NULL, MKDEV(major, i), NULL, "100ask_led%d", i); /* /dev/100ask_led0,1,... */
+		device_create(led_class, NULL, MKDEV(major, i), NULL, "my_led%d", i); /* /dev/100ask_led0,1,... */
 	}
 	
 	return 0;
